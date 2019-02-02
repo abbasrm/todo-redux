@@ -1,46 +1,47 @@
 import React from "react";
 import "../css/bootstrap.min.css";
-import Tasks from './Tasks';
-import './Table.css';
+import Tasks from "./Task";
+import "./Table.css";
+import { connect } from "react-redux";
 
-import AccordionSingle from './AccodionSingle/AccodionSingle'
+import AccordionSingle from "./AccodionSingle/AccodionSingle";
+import * as accodionActionsCreators from "../actions/accordion";
 
-export const Table = props => {
-
+const Table = props => {
   // const completedTasks = props.tasks.filter((elem) => elem.done === true);
 
-  const convertToViewDate = (date) => {
+  const convertToViewDate = date => {
     const newDate = new Date(date),
       getTheDay = newDate.getDate(),
       getTheMonth = newDate.getMonth() + 1,
       getTheYear = newDate.getFullYear();
     return `${getTheDay}/${getTheMonth}/${getTheYear}`;
-  }
+  };
 
   // * First way to comapre two dates including 'today' by converting 'viewDate' into Date type with current time
-  // as these dates will be just created so they will have same time and that will results that we can catch 'today' 
+  // as these dates will be just created so they will have same time and that will results that we can catch 'today'
   // with the equal comparsion sign (=) when comapring the task date with today.
 
   // * Without this, it is almost impossible to get the current comparing time (that we get instantly from new Date())
   // same as the task creation time, weither it will be after or before.
 
   // 1.
-  const convertViewtoDate = (viewDate) => {
-    let splitDate = viewDate.split('/');
+  const convertViewtoDate = viewDate => {
+    let splitDate = viewDate.split("/");
     let newDate = new Date();
 
     newDate.setDate(splitDate[0]);
-    newDate.setMonth((splitDate[1]) - 1);
+    newDate.setMonth(splitDate[1] - 1);
     newDate.setFullYear(splitDate[2]);
 
-    return newDate
-  }
+    return newDate;
+  };
 
   // Another solution is to set both times of the two dates before comparing, which is sightky better and safer as we are no depending
   // on the creation time of the tasks or today's date
 
   //2.
-  const intializingDateTime = (date) => {
+  const intializingDateTime = date => {
     let d;
 
     if (date) {
@@ -52,25 +53,25 @@ export const Table = props => {
     const newDate = new Date();
     d = newDate.setHours(0, 0, 0, 0);
     return d;
-
-  }
+  };
 
   // 1.
   // const today = new Date(),
   //   date1 = convertToViewDate(today);
 
-  const viewTasks = props.tasks.filter((elem) => elem.done === false).filter(d => {
+  const viewTasks = props.tasks
+    .filter(elem => elem.done === false)
+    .filter(d => {
+      // 1.
+      // const d1 = convertViewtoDate(date1),
+      //   d2 = convertViewtoDate(d.viewDate);
 
-    // 1.
-    // const d1 = convertViewtoDate(date1),
-    //   d2 = convertViewtoDate(d.viewDate);
+      // 2.
+      const d1 = intializingDateTime(),
+        d2 = intializingDateTime(d.date);
 
-    // 2.
-    const d1 = intializingDateTime(),
-      d2 = intializingDateTime(d.date);
-
-    return d1 <= d2
-  });
+      return d1 <= d2;
+    });
 
   viewTasks.sort((a, b) => {
     a = new Date(a.date);
@@ -81,46 +82,63 @@ export const Table = props => {
   const furtherDates = viewTasks.map(task => task.viewDate),
     furtherDatesTasksArray = [...new Set(furtherDates)];
 
-
   // console.log(furtherDatesTasksArray)
 
-  return props.tasks.length ? furtherDatesTasksArray.map(date => {
+  return props.tasks.length ? (
+    furtherDatesTasksArray.map(date => {
+      return (
+        <AccordionSingle key={date} date={date}>
+          <table className="myTable mb-2">
+            <thead>
+              <tr className="thead-dark">
+                <th>Title</th>
+                <th>Detail</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {viewTasks.map(el => {
+                return date === convertToViewDate(el.date) ? (
+                  viewTasks.length ? (
+                    <Tasks key={el.id} task={el} onChange={props.changeDone} />
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan="4"
+                        className="text-center mx-auto text-success py-4"
+                      >
+                        All tasks are done..
+                      </td>
+                    </tr>
+                  )
+                ) : null;
+              })}
+            </tbody>
+          </table>
+        </AccordionSingle>
+      );
+    })
+  ) : (
+    <p>No tasks added yet.</p>
+  );
+};
 
-    return (
-      <AccordionSingle key={date} date={date} clicked={props.clicked} cur={props.cur}>
-        <table className="myTable mb-2">
-          <thead>
-            <tr className="thead-dark">
-              <th>Title</th>
-              <th>Detail</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
+const mapStateToProps = state => {
+  return {
+    tasks: state.ts.tasks,
+    accordion: state.acco
+  };
+};
 
-            {viewTasks.map(el => {
-              return date === convertToViewDate(el.date) ?
-                viewTasks.length ?
-                  <Tasks
-                    key={el.id}
-                    task={el}
-                    onChange={props.changeDone}
-                    deleteTask={props.deleteTask} /> :
-                  <tr><td colSpan="4" className="text-center mx-auto text-success py-4">All tasks are done..</td></tr>
+const mapDispatchToProps = dispatch => {
+  return {
+    onOpenAcco: date => dispatch(accodionActionsCreators.openAccordion(date))
+  };
+};
 
-                : null
-
-            })}
-
-          </tbody>
-        </table>
-      </AccordionSingle>
-
-    )
-
-
-  }) : <p>No tasks added yet.</p>
-
-}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Table);

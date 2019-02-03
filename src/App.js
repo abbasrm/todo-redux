@@ -7,8 +7,7 @@ import "./App.css";
 import Table from "./components/Table";
 import Form from "./components/Form";
 import { Aux } from "./hoc/hoc";
-import * as tasksActionsCreators from "./actions/tasks";
-import * as accordionActionsCreators from "./actions/accordion";
+import * as actions from "./actions/index";
 import "react-datepicker/dist/react-datepicker.css";
 
 // Comments are usually another way of doing the same thing after or before that comment (and mostly in ES5 or less recommended way).
@@ -70,8 +69,8 @@ class App extends PureComponent {
       viewDate
     };
 
-    const reTitle = /^[a-zA-z ]{2,12}$/;
-    const reDetail = /^[a-zA-z ]{5,35}$/;
+    const reTitle = /^[a-zA-z ]{2,20}$/;
+    const reDetail = /^[a-zA-z, ]{5,350}$/;
 
     if (!reTitle.test(title) || !reDetail.test(detail)) {
       this.validationCheck("title", title, reTitle);
@@ -168,15 +167,15 @@ class App extends PureComponent {
     const task = { ...this.props.tasks[taskIndex] };
     task.done = task.done ? false : true;
 
-    // try {
+    try {
 
-    //   await axios.patch(`/tasks/${id2}.json`, { done: task.done });
-    //   tasks[taskIndex] = task;
-    //   this.setState({ tasks });
+      await axios.patch(`/tasks/${id2}.json`, { done: task.done });
+      tasks[taskIndex] = task;
+      this.setState({ tasks });
 
-    // } catch (err) {
-    //   console.log(err)
-    // }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   changeDateHandler = d => {
@@ -230,9 +229,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onTasksInit: () => dispatch(tasksActionsCreators.initTasks()),
-    onAddTask: newTask => dispatch(tasksActionsCreators.addTask(newTask)),
-    onOpenAcco: (date) => dispatch(accordionActionsCreators.openAccordion(date))
+    onTasksInit: () => dispatch(actions.initTasks()),
+    onAddTask: newTask => dispatch(actions.addTask(newTask)),
+    onOpenAcco: (date) => dispatch(actions.openAccordion(date))
   };
 };
 

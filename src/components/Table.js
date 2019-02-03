@@ -5,7 +5,7 @@ import "./Table.css";
 import { connect } from "react-redux";
 
 import AccordionSingle from "./AccodionSingle/AccodionSingle";
-import * as accodionActionsCreators from "../actions/accordion";
+import * as actions from "../actions/index";
 
 const Table = props => {
   // const completedTasks = props.tasks.filter((elem) => elem.done === true);
@@ -134,7 +134,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onOpenAcco: date => dispatch(accodionActionsCreators.openAccordion(date))
+    onOpenAcco: date => dispatch(actions.openAccordion(date))
   };
 };
 

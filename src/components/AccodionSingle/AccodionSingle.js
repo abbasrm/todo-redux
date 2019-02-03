@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./AccodionSingle.module.css";
 import classNames from "classnames";
 import { connect } from "react-redux";
-import * as accodionActionsCreators from "../../actions/accordion";
+import * as actions from "../../actions/index";
 
 const AccordionSingle = props => {
   // const sections = (
@@ -86,7 +86,7 @@ const mapStateToProp = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onOpenAcco: date => dispatch(accodionActionsCreators.openAccordion(date))
+    onOpenAcco: date => dispatch(actions.openAccordion(date))
   };
 };
 

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import Redirect from './redirect';
 import * as serviceWorker from "./serviceWorker";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -21,7 +22,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <Redirect />
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")

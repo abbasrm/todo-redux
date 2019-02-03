@@ -1,5 +1,5 @@
 import React from "react";
-import DeleteButton from "./DeleteButton";
+import DeleteButton from "../UI/DeleteButton";
 
 const Task = props => {
   let inputProps = {},
@@ -20,7 +20,7 @@ const Task = props => {
     <tr key={props.task.id}>
       <td>{props.task.title}</td>
       <td>{props.task.detail}</td>
-      <td>{props.task.viewDate}</td>
+      {/* <td>{props.task.viewDate}</td> */}
       <td>
         <div className="form-check form-check-inline ml-3">
           <input

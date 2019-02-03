@@ -5,15 +5,15 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { connect } from "react-redux";
 
-import * as actionTasksCreators from "../actions/tasks";
+import * as actionTasksCreators from "../../actions/tasks";
 
 const DeleteButton = props => {
-  const deleteHandler = (delId, tasks) => {
+  const deleteHandler = (delId) => {
     const task = { ...props.tasks.filter(elem => elem.id2 === delId) },
       otherTasks = [...props.tasks.filter(elem => elem.id2 !== delId)];
 
     const taskTitle = task[0].title;
-
+    
     if (window.confirm(`Are you sure to delete ${taskTitle}?`)) {
       props.onDelete(props.id, otherTasks);
     }

@@ -1,4 +1,4 @@
-import axios from "../components/axios-tasks";
+import axios from "../components/UI/axios/axios-tasks";
 import * as actionTypes from "./actionTypes";
 
 
@@ -9,6 +9,24 @@ const setCompletedTasks = tasks => {
   };
 };
 
+const setDeleteCompletedTask = tasks => {
+  return {
+    type: actionTypes.DELETE_COMPLETED_TASK,
+    tasks
+  };
+};
+
+export const deleteCompletedTask = (delId, tasks) => {
+  return dispatch => {
+    axios
+      .delete("/tasks/" + delId + ".json")
+      .then(res => {
+        console.log("deleted");
+        dispatch(setDeleteCompletedTask(tasks));
+      })
+      .catch(err => console.log(err));
+  };
+};
 
 export const initCompletedTasks = () => {
   return dispatch => {

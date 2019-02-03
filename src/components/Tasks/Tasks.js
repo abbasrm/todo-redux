@@ -1,13 +1,14 @@
 import React from "react";
-import "../css/bootstrap.min.css";
+import "../../css/bootstrap.min.css";
 import Task from "./Task";
-import "./Table.css";
+import CSSModules from 'react-css-modules';
+import styles from "./Tasks.module.css";
 import { connect } from "react-redux";
 
-import AccordionSingle from "./AccodionSingle/AccodionSingle";
-import * as actions from "../actions/index";
+import AccordionSingle from "../UI/AccodionSingle/AccodionSingle";
+import * as actions from "../../actions/index";
 
-const Table = props => {
+const Tasks = props => {
   // const completedTasks = props.tasks.filter((elem) => elem.done === true);
 
   const convertToViewDate = date => {
@@ -87,12 +88,12 @@ const Table = props => {
     furtherDatesTasksArray.map(date => {
       return (
         <AccordionSingle key={date} date={date}>
-          <table className="myTable mb-2">
+          {/* <table className={[classes["myTable"], classes["mb-2"]].join(' ')}> */}
+          <table styleName="myTable" className="mb-2">
             <thead>
               <tr className="thead-dark">
                 <th>Title</th>
                 <th>Detail</th>
-                <th>Date</th>
                 <th>Status</th>
                 <th>Delete</th>
               </tr>
@@ -140,4 +141,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Table);
+)(CSSModules(Tasks, styles, {allowMultiple: true}));

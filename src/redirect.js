@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, Link } from "react-router-dom";
 import App from "./App";
-import CompletedTasks from './components/completedTasks'
+import CompletedTasks from './components/completedTasks/completedTasks'
 
 const redirect = props => {
   return (

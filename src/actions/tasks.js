@@ -1,4 +1,4 @@
-import axios from "../components/axios-tasks";
+import axios from "../components/axios/axios-tasks";
 import * as actionTypes from "./actionTypes";
 
 const setAddTask = (id, task) => {

@@ -5,4 +5,4 @@ export {
     initTasks
 } from "./tasks";
 
-export { initCompletedTasks } from './completedTasks'
+export { initCompletedTasks, deleteCompletedTask } from './completedTasks'

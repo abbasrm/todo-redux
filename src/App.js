@@ -1,10 +1,10 @@
 import React, { PureComponent } from "react";
-import axios from "./components/axios-tasks";
+import axios from "./components/UI/axios/axios-tasks";
 import { connect } from "react-redux";
 
-import todoStyle from './hoc/todoStyle';
+import todoStyle from "./hoc/todoStyle";
 import "./App.css";
-import Table from "./components/Tasks";
+import Table from "./components/Tasks/Tasks";
 import Form from "./components/Form";
 import { Aux } from "./hoc/hoc";
 import * as actions from "./actions/index";
@@ -25,8 +25,7 @@ class App extends PureComponent {
     const today = this.getToday();
 
     this.props.onTasksInit();
-    this.props.onOpenAcco(today)
-
+    this.props.onOpenAcco(today);
   }
 
   getToday = () => {
@@ -168,13 +167,11 @@ class App extends PureComponent {
     task.done = task.done ? false : true;
 
     try {
-
       await axios.patch(`/tasks/${id2}.json`, { done: task.done });
       tasks[taskIndex] = task;
       this.setState({ tasks });
-
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
@@ -188,23 +185,21 @@ class App extends PureComponent {
       <Aux>
         <React.Fragment>
           <>
+            <Form
+              getTasks={this.getInput}
+              clc={this.calculateClass}
+              clearLocalStorage={this.clearAllTasks}
+              clearCompleted={this.clearCompletedTasks.bind(this)}
+              changeDateHandler={this.changeDateHandler}
+              selectedDate={this.state.date}
+            />
 
-                    <Form
-                      getTasks={this.getInput}
-                      clc={this.calculateClass}
-                      clearLocalStorage={this.clearAllTasks}
-                      clearCompleted={this.clearCompletedTasks.bind(this)}
-                      changeDateHandler={this.changeDateHandler}
-                      selectedDate={this.state.date}
-                    />
-
-                    <Table
-                      changeDone={this.changeDone.bind(this)}
-                      showDone={this.state.showDone}
-                      clicked={this.openAccLi}
-                      cur={this.state.currentAccLi}
-                    />
-
+            <Table
+              changeDone={this.changeDone.bind(this)}
+              showDone={this.state.showDone}
+              clicked={this.openAccLi}
+              cur={this.state.currentAccLi}
+            />
           </>
         </React.Fragment>
       </Aux>
@@ -222,7 +217,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onTasksInit: () => dispatch(actions.initTasks()),
     onAddTask: newTask => dispatch(actions.addTask(newTask)),
-    onOpenAcco: (date) => dispatch(actions.openAccordion(date))
+    onOpenAcco: date => dispatch(actions.openAccordion(date))
   };
 };
 

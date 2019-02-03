@@ -11,6 +11,13 @@ const completedTasksReducer = (state = initialState, action) => {
         ...state,
         tasks: action.tasks
       };
+    
+    case actionTypes.DELETE_COMPLETED_TASK:
+    console.log(action)
+    return {
+      ...state,
+      tasks: action.tasks
+    }
 
     default:
       return state;

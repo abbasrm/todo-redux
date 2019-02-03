@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./AccodionSingle.module.css";
 import classNames from "classnames";
 import { connect } from "react-redux";
-import * as actions from "../../actions/index";
+import * as actions from "../../../actions/index";
 
 const AccordionSingle = props => {
   // const sections = (

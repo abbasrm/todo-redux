@@ -60,7 +60,6 @@ const Table = props => {
   //   date1 = convertToViewDate(today);
 
   const viewTasks = props.tasks
-    .filter(elem => elem.done === false)
     .filter(d => {
       // 1.
       // const d1 = convertViewtoDate(date1),

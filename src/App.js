@@ -2,9 +2,9 @@ import React, { PureComponent } from "react";
 import axios from "./components/axios-tasks";
 import { connect } from "react-redux";
 
-import classes from "./App.module.css";
+import todoStyle from './hoc/todoStyle';
 import "./App.css";
-import Table from "./components/Table";
+import Table from "./components/Tasks";
 import Form from "./components/Form";
 import { Aux } from "./hoc/hoc";
 import * as actions from "./actions/index";
@@ -188,13 +188,7 @@ class App extends PureComponent {
       <Aux>
         <React.Fragment>
           <>
-            <div className={[classes["App-class"], classes.App2].join(" ")}>
-              <div
-                className={"container my-5"}
-                style={{ border: "1px solid #ccc" }}
-              >
-                <div className="row">
-                  <div className="col-lg-12 col-sm-12">
+
                     <Form
                       getTasks={this.getInput}
                       clc={this.calculateClass}
@@ -210,10 +204,7 @@ class App extends PureComponent {
                       clicked={this.openAccLi}
                       cur={this.state.currentAccLi}
                     />
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </>
         </React.Fragment>
       </Aux>
@@ -238,4 +229,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(todoStyle(App));

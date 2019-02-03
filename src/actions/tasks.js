@@ -63,7 +63,7 @@ export const initTasks = () => {
   return dispatch => {
     const tasks = [];
 
-    axios.get("/tasks.json").then(res => {
+    axios.get('/tasks.json?orderBy="done"&equalTo=false').then(res => {
       for (let id in res.data) {
         tasks.push({
           id2: id,

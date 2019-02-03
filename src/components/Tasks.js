@@ -1,6 +1,6 @@
 import React from "react";
 import "../css/bootstrap.min.css";
-import Tasks from "./Task";
+import Task from "./Task";
 import "./Table.css";
 import { connect } from "react-redux";
 
@@ -102,7 +102,7 @@ const Table = props => {
               {viewTasks.map(el => {
                 return date === convertToViewDate(el.date) ? (
                   viewTasks.length ? (
-                    <Tasks key={el.id} task={el} onChange={props.changeDone} />
+                    <Task key={el.id} task={el} onChange={props.changeDone} />
                   ) : (
                     <tr>
                       <td

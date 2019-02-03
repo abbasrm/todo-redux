@@ -4,3 +4,5 @@ export {
     addTask, 
     initTasks
 } from "./tasks";
+
+export { initCompletedTasks } from './completedTasks'

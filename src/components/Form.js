@@ -42,7 +42,7 @@ const Form = props => {
   // }
 
   return (
-    <div className="mx-auto py-4 ">
+    <div className="mx-auto py-3">
       <form
         className="needs-validation form-inline mx-auto "
         onSubmit={props.getTasks}

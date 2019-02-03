@@ -11,10 +11,12 @@ import { BrowserRouter } from "react-router-dom";
 
 import tasksReducer from "./reducers/tasks";
 import accordionReducer from "./reducers/accordion";
+import completedTasksReducer from "./reducers/completedTasks";
 
 const rootReducer = combineReducers({
   ts: tasksReducer,
-  acco: accordionReducer
+  acco: accordionReducer,
+  comTs: completedTasksReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

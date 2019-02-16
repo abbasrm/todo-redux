@@ -5,12 +5,14 @@ import DatePicker from "react-datepicker";
 
 import { connect } from "react-redux";
 
+// import classes from './Form.module.css'
+
 const Form = props => {
   let clearBtn = null;
 
   if (props.tasks.length) {
     clearBtn = (
-      <div className="col-md-2 mt-4">
+      <div className="col-md-2 col-sm-12 mt-4 pt-3">
         <button
           type="button"
           className="btn btn-block btn-danger"
@@ -22,7 +24,7 @@ const Form = props => {
         {props.tasks.filter(e => e.done === true).length ? (
           <button
             type="button"
-            className="btn btn-block  btn-warning"
+            className="btn btn-block btn-warning"
             onClick={props.clearCompleted}
           >
             {" "}
@@ -42,14 +44,14 @@ const Form = props => {
   // }
 
   return (
-    <div className="mx-auto py-3">
+    <div className="mx-auto pb-3">
       <form
         className="needs-validation form-inline mx-auto "
         onSubmit={props.getTasks}
       >
-        <div className="col-md-3">
+        <div className="col-lg-3 col-md-3 col-sm-12 pt-3">
           <div className="form-group">
-            <label htmlFor="validationCustom01">Title</label>
+            <label htmlFor="validationCustom01" className="d-block">Title</label>
             <input
               type="text"
               id="validationCustom01"
@@ -62,7 +64,7 @@ const Form = props => {
             </div>
           </div>
         </div>
-        <div className="col-md-3">
+        <div className="col-lg-3 col-md-3 col-sm-12 pt-3">
           <div className="form-group">
             <label htmlFor="validationCustom02">Detail</label>
             <input
@@ -78,18 +80,18 @@ const Form = props => {
           </div>
         </div>
 
-        <div className="col-md-2">
+        <div className="col-lg-2 col-md-2 col-sm-12 pt-3">
           <div className="form-group">
             <label htmlFor="validationCustom01">Date</label>
             <DatePicker
-              className="form-control"
+              className="form-control custom-d-p"
               selected={props.selectedDate}
               onChange={props.changeDateHandler}
             />
           </div>
         </div>
 
-        <div className="col-md-2 mt-4">
+        <div className="col-md-2 col-sm-12 mt-4 pt-3">
           <button
             type="submit"
             className="btn btn-block text-center mx-auto btn-success"

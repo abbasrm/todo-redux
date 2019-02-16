@@ -1,11 +1,11 @@
 import React, { PureComponent } from "react";
-import axios from "./components/UI/axios/axios-tasks";
+import axios from "./components/axios/axios-tasks";
 import { connect } from "react-redux";
 
 import todoStyle from "./hoc/todoStyle";
 import "./App.css";
 import Table from "./components/Tasks/Tasks";
-import Form from "./components/Form";
+import Form from "./components/Form/Form";
 import { Aux } from "./hoc/hoc";
 import * as actions from "./actions/index";
 import "react-datepicker/dist/react-datepicker.css";

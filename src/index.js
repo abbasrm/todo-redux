@@ -4,7 +4,7 @@ import "./index.css";
 
 import Redirect from './redirect';
 import * as serviceWorker from "./serviceWorker";
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { BrowserRouter } from "react-router-dom";
@@ -13,13 +13,15 @@ import tasksReducer from "./reducers/tasks";
 import accordionReducer from "./reducers/accordion";
 import completedTasksReducer from "./reducers/completedTasks";
 
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+    
 const rootReducer = combineReducers({
   ts: tasksReducer,
   acco: accordionReducer,
   comTs: completedTasksReducer
 });
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>

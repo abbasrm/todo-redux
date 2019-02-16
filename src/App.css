@@ -4,6 +4,12 @@
   border-radius: 4px !important;
 }
 
+:global input{
+  width: 100% !important;
+}
+:global .custom-d-p, .react-datepicker-wrapper, .react-datepicker__input-container{
+  width: 100% !important;
+}
 body {
   font-family: 'quicksand';
   font-weight: lighter;

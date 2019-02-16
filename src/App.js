@@ -25,7 +25,12 @@ class App extends PureComponent {
     const today = this.getToday();
 
     this.props.onTasksInit();
+    console.log('today', today);
     this.props.onOpenAcco(today);
+  }
+
+  componentWillUnmount(){
+    this.props.onOpenAcco(null);
   }
 
   getToday = () => {

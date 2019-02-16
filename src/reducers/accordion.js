@@ -8,6 +8,8 @@ const initialState = {
 const accordionReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.OPEN_ACCORDION:
+    console.log('reducer data', action.date)
+    console.log('acc state', state)
       if (state.date !== action.date && state.open) {
         return {
           date: action.date,

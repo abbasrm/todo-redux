@@ -1,15 +1,18 @@
 import React from "react";
-import { Route, Switch, NavLink } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import App from "./App";
-import CompletedTasks from './components/completedTasks/completedTasks'
+import CompletedTasks from './components/completedTasks/completedTasks';
+import Navigation from './components/Navigation/Navigation';
+import Auth from './components/Auth/Auth';
+import todoStyle from './hoc/todoStyle'
 
 const redirect = props => {
   return (
     <>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/completed-tasks">completed tasks</NavLink>
+      <Navigation />
       <Switch>
-        <Route exact path="/completed-tasks" component={CompletedTasks} />
+      <Route exact path="/completed-tasks" component={todoStyle(CompletedTasks)} />
+      <Route exact path="/auth" component={todoStyle(Auth)} />
         <Route path="/" component={App} />
       </Switch>
     </>

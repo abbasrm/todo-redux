@@ -64,4 +64,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(todoStyle(CSSModules(CompletedTasks, styles)));
+)(CSSModules(CompletedTasks, styles));

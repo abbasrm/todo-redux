@@ -102,7 +102,7 @@ const Tasks = props => {
               {viewTasks.map(el => {
                 return date === convertToViewDate(el.date) ? (
                   viewTasks.length ? (
-                    <Task key={el.id} task={el} onChange={props.changeDone} />
+                    <Task key={el.id} task={el} onChange={() => props.changeDone(el.id2)} />
                   ) : (
                     <tr>
                       <td
@@ -134,7 +134,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onOpenAcco: date => dispatch(actions.openAccordion(date))
+    onOpenAcco: date => dispatch(actions.openAccordion(date)),
+    changeDone: id => dispatch(actions.onTaskDone(id))
   };
 };
 

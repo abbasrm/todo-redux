@@ -11,9 +11,9 @@ const redirect = props => {
     <>
       <Navigation />
       <Switch>
-      <Route exact path="/completed-tasks" component={todoStyle(CompletedTasks)} />
-      <Route exact path="/auth" component={todoStyle(Auth)} />
-        <Route path="/" component={App} />
+        <Route exact path="/completed-tasks" component={todoStyle(CompletedTasks)} />
+        <Route exact path="/auth" component={todoStyle(Auth)} />
+        <Route exact path="/" component={App} />
       </Switch>
     </>
   );

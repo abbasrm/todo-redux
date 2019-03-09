@@ -4,15 +4,13 @@ import { connect } from "react-redux";
 
 import todoStyle from "./hoc/todoStyle";
 import "./App.css";
-import Table from "./components/Tasks/Tasks";
+import Tasks from "./components/Tasks/Tasks";
 import Form from "./components/Form/Form";
 import { Aux } from "./hoc/hoc";
 import * as actions from "./actions/index";
 import "react-datepicker/dist/react-datepicker.css";
 
-// Comments are usually another way of doing the same thing after or before that comment (and mostly in ES5 or less recommended way).
-
-class App extends PureComponent {
+export class App extends PureComponent {
   state = {
     date: new Date(),
     isValid: {
@@ -23,9 +21,7 @@ class App extends PureComponent {
 
   componentDidMount() {
     const today = this.getToday();
-
     this.props.onTasksInit();
-    console.log('today', today);
     this.props.onOpenAcco(today);
   }
 
@@ -103,7 +99,6 @@ class App extends PureComponent {
           "This task title and detail have been added before and not marked as done yet!"
         );
       } else {
-        //        this.addNewTask(newTask);
         this.props.onAddTask(newTask);
 
         e.target.elements.title.value = "";
@@ -128,6 +123,7 @@ class App extends PureComponent {
         }
       });
       // need to rerender after clearning the completed tasks so that the clear completed tasks button disappear
+      // To be implemented by redux..
       //this.setState({ tasks: this.state.tasks})
     }
   }
@@ -164,21 +160,19 @@ class App extends PureComponent {
     return isValid.join(" ");
   };
 
-  async changeDone(id2) {
-    const tasks = [...this.props.tasks],
-      taskIndex = this.props.tasks.findIndex(e => e.id2 === id2);
-
-    const task = { ...this.props.tasks[taskIndex] };
-    task.done = task.done ? false : true;
-
-    try {
-      await axios.patch(`/tasks/${id2}.json`, { done: task.done });
-      tasks[taskIndex] = task;
-      this.setState({ tasks });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // async changeDone(id2) {
+  //   const tasks = [...this.props.tasks],
+  //    taskIndex = this.props.tasks.findIndex(e => e.id2 === id2);
+  //   const task = { ...this.props.tasks[taskIndex] };
+  //   task.done = task.done ? false : true;
+  //   try {
+  //     await axios.patch(`/tasks/${id2}.json`, { done: task.done });
+  //     this.props.onTasksInit();
+  //     this.setState({ tasks: newTasks });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   changeDateHandler = d => {
     this.setState({ date: d });
@@ -199,8 +193,7 @@ class App extends PureComponent {
               selectedDate={this.state.date}
             />
 
-            <Table
-              changeDone={this.changeDone.bind(this)}
+            <Tasks
               showDone={this.state.showDone}
               clicked={this.openAccLi}
               cur={this.state.currentAccLi}

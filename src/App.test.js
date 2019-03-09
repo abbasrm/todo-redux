@@ -1,9 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+import { shallow, configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+import { App } from './App';
+import Tasks from './components/Tasks/Tasks'
+
+configure({ adapter: new Adapter() })
+
+describe('<App />', () => {
+    it('Should have Task comp child', () => {
+        const wrapper = shallow(<App onTasksInit={() => true} onOpenAcco={() => true}/>);
+        expect(wrapper.find(Tasks)).toHaveLength(1)
+    })
+})

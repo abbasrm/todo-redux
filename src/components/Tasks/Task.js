@@ -27,7 +27,7 @@ const Task = props => {
             className="form-check-input"
             id={props.task.id2}
             type="checkbox"
-            onChange={() => props.onChange(props.task.id2)}
+            onChange={props.onChange}
             {...inputProps}
           />
           <label htmlFor={props.task.id2} className={doneClasses.join(" ")}>

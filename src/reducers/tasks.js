@@ -24,6 +24,13 @@ const tasksReducer = (state = initialState, action) => {
         tasks: action.tasks
       };
 
+    case actionTypes.ON_TASK_DONE:
+      const tasks = state.tasks.filter(t => t.id2 !== action.id);
+      return {
+        ...state,
+        tasks
+      }
+
     default:
       return state;
   }

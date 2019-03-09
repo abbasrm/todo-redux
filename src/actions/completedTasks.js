@@ -21,7 +21,6 @@ export const deleteCompletedTask = (delId, tasks) => {
     axios
       .delete("/tasks/" + delId + ".json")
       .then(res => {
-        console.log("deleted");
         dispatch(setDeleteCompletedTask(tasks));
       })
       .catch(err => console.log(err));
@@ -44,4 +43,18 @@ export const initCompletedTasks = () => {
     });
   };
 };
+
+const setOnTaskDone = (id) => {
+  return {
+    type: actionTypes.ON_TASK_DONE,
+    id
+  }
+}
+
+export const onTaskDone = (id) => {
+  return dispatch => {
+    axios.patch(`/tasks/${id}.json`, { done: true });
+    dispatch(setOnTaskDone(id))
+  }
+}
 

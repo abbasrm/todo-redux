@@ -13,7 +13,7 @@ const completedTasksReducer = (state = initialState, action) => {
       };
     
     case actionTypes.DELETE_COMPLETED_TASK:
-    console.log(action)
+    //console.log(action)
     return {
       ...state,
       tasks: action.tasks

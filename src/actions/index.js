@@ -5,4 +5,8 @@ export {
     initTasks
 } from "./tasks";
 
-export { initCompletedTasks, deleteCompletedTask } from './completedTasks'
+export { 
+    initCompletedTasks,
+    deleteCompletedTask,
+    onTaskDone
+ } from './completedTasks'
